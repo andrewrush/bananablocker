@@ -1,2 +1,2 @@
 # bananablocker
-Bananablocker you can run this code on esp32 to block ads on your network, it work the same like pihole
+A Pi-hole-like ad blocker that runs on ESP8266 microcontrollers. Block ads and trackers at the DNS level for your entire network!
