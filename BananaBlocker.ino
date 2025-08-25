@@ -1,15 +1,15 @@
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <ESP8266mDNS.h>
+#include <WiFi.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
 #include <DNSServer.h>
-#include <WiFiUdp.h>
+#include <WiFiUDP.h>
 #include <EEPROM.h>
-#include <FS.h>
+#include <SPIFFS.h>
 
 // Configuration
 #define DNS_PORT 53
 #define WEB_PORT 80
-#define FLASH_BUTTON 0  // GPIO0 (Flash button)
+#define FLASH_BUTTON 0  // GPIO0 (Boot button on ESP32)
 #define EEPROM_SIZE 512
 #define MAX_BLOCKED_DOMAINS 200
 #define DOMAIN_LENGTH 32
@@ -20,7 +20,7 @@ const char* ap_password = "banana123";
 const char* device_name = "BananaBlocker";
 
 // Global objects
-ESP8266WebServer server(WEB_PORT);
+WebServer server(WEB_PORT);
 DNSServer dnsServer;
 WiFiUDP udpDNS;
 WiFiClient client;
@@ -188,7 +188,14 @@ void loop() {
   
   // Handle mDNS
   if (!isAPMode) {
-    MDNS.update();
+    static unsigned long last_mdns_refresh = 0;
+    if (millis() - last_mdns_refresh > 60000) {  // Refresh every 60 seconds
+      last_mdns_refresh = millis();
+      if (MDNS.begin(device_name)) {
+        MDNS.addService("http", "tcp", WEB_PORT);
+        Serial.println("mDNS refreshed");
+      }
+    }
   }
   
   delay(1);
@@ -930,7 +937,7 @@ String getLoginPage() {
         button { width: 100%; padding: 15px; background: #FFE135; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 10px; font-weight: bold; }
         button:hover { background: #F5D920; }
         .error { color: #d32f2f; margin-top: 10px; }
-        .stats { background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .stats { background: #f5f5f5; padding: 15px; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .stats div { margin: 5px 0; }
     </style>
 </head>
