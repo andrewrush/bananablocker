@@ -28,7 +28,7 @@ A Pi-hole-like ad blocker that runs on ESP32 microcontrollers. Block ads and tra
    - Open Arduino IDE, go to **File > Preferences**.
    - Add to "Additional Boards Manager URLs": `https://raw.githubusercontent.com/espressif/arduino-esp32/master/package_esp32_index.json`.
    - Go to **Tools > Board > Boards Manager**, search for "esp32," and install the **ESP32 by Espressif Systems** package (version 2.x or higher).
-3. **Install Drivers **:
+3. **Install Drivers**:
    - Download and install the drivers e.g., **CP210x USB to UART Bridge VCP Drivers** from [Silicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers). Check your device description for available compatible drivers.
    - Verify the ESP32 is detected in Device Manager (Windows) or `/dev/tty*` (Linux/macOS) as a COM port (e.g., COM18).
 
