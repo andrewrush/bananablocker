@@ -937,7 +937,7 @@ String getLoginPage() {
         button { width: 100%; padding: 15px; background: #FFE135; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 10px; font-weight: bold; }
         button:hover { background: #F5D920; }
         .error { color: #d32f2f; margin-top: 10px; }
-        .stats { background: #f5f5f5; padding: 15px; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .stats { background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .stats div { margin: 5px 0; }
     </style>
 </head>
